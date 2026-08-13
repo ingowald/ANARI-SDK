@@ -91,11 +91,11 @@ inline void RefCounted::refDec(RefType type)
 inline uint32_t RefCounted::useCount(RefType type) const
 {
   if (type == RefType::PUBLIC)
-    return m_count & PUBLIC_MASK;
+    return uint32_t(m_count & PUBLIC_MASK);
   else if (type == RefType::INTERNAL)
-    return m_count >> UINT64_C(32);
+    return uint32_t(m_count >> UINT64_C(32));
   else
-    return (m_count & PUBLIC_MASK) + (m_count >> UINT64_C(32));
+    return uint32_t((m_count & PUBLIC_MASK) + (m_count >> UINT64_C(32)));
 }
 
 inline void RefCounted::on_NoPublicReferences()
